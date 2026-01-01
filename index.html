@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Untitled</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You 💫</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(145deg,#5c1f2e,#6a2435,#7a2a40);
+  overflow:hidden;
+}
+
+/* -------- Falling 🌹 Roses -------- */
+.hearts{
+  position:fixed;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+}
+.hearts span{
+  position:absolute;
+  font-size:22px;
+  opacity:.75;
+  animation:fall 9s linear infinite;
+}
+@keyframes fall{
+  from{transform:translateY(-20%) rotate(0deg);}
+  to{transform:translateY(115%) rotate(16deg);}
+}
+
+/* -------- Page Layout -------- */
+.page{
+  display:none;
+  height:100vh;
+  padding:22px;
+  position:relative;
+  z-index:2;
+}
+.show{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  animation:fade .55s ease;
+}
+@keyframes fade{
+  from{opacity:0; transform:translateY(18px)}
+  to{opacity:1; transform:translateY(0)}
+}
+
+/* -------- Glass UI -------- */
+.glass{
+  backdrop-filter:blur(18px);
+  background:rgba(255,255,255,.22);
+  border-radius:30px;
+  border:1px solid rgba(255,255,255,.35);
+  box-shadow:0 28px 70px rgba(0,0,0,.25);
+}
+
+/* -------- Buttons -------- */
+button{
+  border:none;
+  border-radius:16px;
+  padding:12px 22px;
+  color:white;
+  font-weight:500;
+  background:linear-gradient(120deg,#b84b7a,#e06590);
+  box-shadow:0 16px 36px rgba(255,0,110,.25);
+  transition:.2s ease;
+}
+button:active{transform:scale(.92);}
+
+/* -------- Loader -------- */
+.loader{
+  width:42px;height:42px;border-radius:50%;
+  border:4px solid #ffb6d8;
+  border-top-color:transparent;
+  animation:spin .9s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* -------- Titles -------- */
+.nyBox{padding:30px 26px;text-align:center;}
+.nyTitle{
+  font-family:'Great Vibes',cursive;
+  font-size:46px;
+  color:#ffe5f0;
+}
+
+/* -------- Envelope -------- */
+.envelope{
+  width:160px;
+  height:105px;
+  background:#ff9ec4;
+  border-radius:16px;
+  position:relative;
+  cursor:pointer;
+  animation:float 2.4s ease-in-out infinite alternate;
+}
+@keyframes float{
+  from{transform:translateY(0) rotate(-2deg)}
+  to{transform:translateY(-10px) rotate(2deg)}
+}
+.envelope::before{
+  content:"";
+  position:absolute;
+  top:0;left:0;width:100%;height:50%;
+  background:#ff78af;
+  clip-path:polygon(0 0,100% 0,50% 100%);
+  border-radius:16px 16px 0 0;
+}
+
+/* -------- Fly Away -------- */
+.fly-away{
+  animation:flyAway 1.6s cubic-bezier(.25,.9,.35,1) forwards;
+}
+@keyframes flyAway{
+  0%{transform:translate(0,0) scale(1);opacity:1}
+  35%{transform:translate(-10px,-40px) rotate(-6deg)}
+  70%{transform:translate(-40px,-160px) rotate(8deg) scale(.75)}
+  100%{transform:translate(-80px,-340px) scale(.25) rotate(-14deg);opacity:0}
+}
+
+/* -------- Letter -------- */
+.notebook{
+  padding:26px;
+  width:92%;
+  max-width:520px;
+  max-height:78vh;
+  overflow-y:auto;
+}
+.letterTitle{
+  font-family:'Playfair Display',serif;
+  color:#ffe5f5;
+  font-size:22px;
+  font-weight:700;
+}
+.letter{
+  white-space:pre-wrap;
+  line-height:1.65;
+  font-size:15px;
+  margin-top:10px;
+  color:#ffeef8;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Falling Roses -->
+<div class="hearts" id="hearts"></div>
+
+<!-- LOCK -->
+<div id="lock" class="page show">
+  <div class="glass nyBox" style="width:340px;max-width:92%">
+    <h2 style="font-family:'Playfair Display';color:#ffe5f5;margin:8px 0;">🔐 Enter Secret Date</h2>
+    <p style="font-size:13px;color:#f5d2e5;margin-top:-4px">ddmmyy — our day</p>
+
+    <input id="pin" placeholder="******" readonly
+      style="padding:11px;border-radius:14px;border:1px solid #ccc;text-align:center;width:100%" />
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px">
+      <button onclick="add('1')">1</button><button onclick="add('2')">2</button><button onclick="add('3')">3</button>
+      <button onclick="add('4')">4</button><button onclick="add('5')">5</button><button onclick="add('6')">6</button>
+      <button onclick="add('7')">7</button><button onclick="add('8')">8</button><button onclick="add('9')">9</button>
+      <button onclick="add('0')">0</button><button onclick="clr()">⌫</button>
+    </div>
+
+    <button style="margin-top:12px" onclick="unlock()">Unlock 💫</button>
+
+    <div id="error" style="display:none;color:#ffb3c7;font-size:13px;margin-top:8px">
+      Wrong password — try again 🌷
+    </div>
+  </div>
+</div>
+
+<!-- PROCESS -->
+<div id="processing" class="page">
+  <div class="glass nyBox">
+    <div class="loader"></div>
+    <p style="color:#ffe5f5">Softening the magic… ✨</p>
+  </div>
+</div>
+
+<!-- NEW YEAR -->
+<div id="ny" class="page">
+  <div class="glass nyBox">
+    <div class="nyTitle">Happy New Year, my love 💜</div>
+    <p style="color:#ffeaf7;font-weight:500">May this year be peaceful & kind to your heart ✨</p>
+    <button style="margin-top:18px" onclick="goProcess2()">Proceed ➜</button>
+  </div>
+</div>
+
+<!-- PROCESS 2 -->
+<div id="processing2" class="page">
+  <div class="glass nyBox">
+    <div class="loader"></div>
+    <p style="color:#ffe5f5">Unwrapping a secret 💌</p>
+  </div>
+</div>
+
+<!-- ENVELOPE -->
+<div id="envelopePage" class="page">
+  <div class="glass nyBox">
+    <div id="env" class="envelope" onclick="openEnvelope()"></div>
+    <p style="margin-top:10px;color:#ffeaf7">Tap the envelope 💌</p>
+  </div>
+</div>
+
+<!-- PROCESS 3 -->
+<div id="processing3" class="page">
+  <div class="glass nyBox">
+    <div class="loader"></div>
+    <p style="color:#ffe5f5">Letting the words land softly… 🖊️</p>
+  </div>
+</div>
+
+<!-- LETTER -->
+<div id="letterPage" class="page">
+  <div class="glass notebook">
+    <div class="letterTitle">Happy New Year, my princess ✨</div>
+
+    <div id="typed" class="letter"></div>
+  </div>
+</div>
+
+<script>
+const PASSWORD="222100";
+
+/* Falling Roses 🌹 */
+const hearts=document.getElementById("hearts");
+for(let i=0;i<28;i++){
+ let h=document.createElement("span");
+ h.textContent="🌹";
+ h.style.left=Math.random()*98+"%";
+ h.style.animationDelay=Math.random()*6+"s";
+ hearts.appendChild(h);
+}
+
+/* Page Switch */
+function show(id){
+ document.querySelectorAll('.page').forEach(p=>p.classList.remove('show'));
+ document.getElementById(id).classList.add('show');
+}
+
+/* Keypad */
+function add(x){let p=document.getElementById('pin');if(p.value.length<6)p.value+=x;}
+function clr(){let p=document.getElementById('pin');p.value=p.value.slice(0,-1);}
+
+/* Unlock */
+function unlock(){
+ const v=document.getElementById('pin').value;
+ const e=document.getElementById('error');
+ if(v===PASSWORD){
+  e.style.display='none';
+  show('processing');
+  setTimeout(()=>show('ny'),2300);
+ } else e.style.display='block';
+}
+
+/* Next */
+function goProcess2(){
+ show('processing2');
+ setTimeout(()=>show('envelopePage'),2300);
+}
+
+/* Envelope Fly */
+function openEnvelope(){
+ const env=document.getElementById('env');
+ env.classList.add('fly-away');
+ setTimeout(()=>{
+  show('processing3');
+  setTimeout(()=>{
+    show('letterPage');
+    typeLetter();
+  },2200);
+ },1500);
+}
+
+/* New Lovely Letter */
+const letterText=`Happy New Year, shreeji ✨
+They say how you spend your New Year's Eve is how you'll spend the rest of the year. I can’t think of anything better than starting and ending every day with you.
+
+Thank you for making me the luckiest person in the world.
+
+Here’s to 2026 being filled with more laughter, more dates, and more 'us.'
+
+I love you so much 💗`;
+
+function typeLetter(){
+ const box=document.getElementById('typed');
+ box.innerHTML="";
+ let i=0;
+ const w=setInterval(()=>{
+  box.innerHTML+=letterText.charAt(i);
+  i++;
+  if(i>=letterText.length){
+    clearInterval(w);
+  }
+ },26);
+}
+</script>
+
+</body>
+</html>
+    
+  </body>
+  
+</html>
